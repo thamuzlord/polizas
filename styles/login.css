@@ -1,0 +1,47 @@
+﻿/*!
+ * BLOCKS - Responsive Dashboard Theme
+ *
+ * Copyright 2013
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Created by: Carlos Esteban Alvarez
+ * URL: http://www.basicoh.com
+ * Designed and built based on Twitter Bootstrap.
+ */
+
+/*CONFIGURATION USED IN LOGIN.HTML*/
+/*Login Page*/
+
+html{
+	/* This image will be displayed fullscreen */
+	background:url('../img/bg.jpg') no-repeat center center;
+	/* Ensure the html element always takes up the full height of the browser window */
+	min-height:100%;
+
+	/* The Magic */
+	background-size:cover;
+}
+body {
+	background:transparent;
+	min-height:100%;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.block-unit {
+  margin-bottom: 30px;
+  padding-bottom:10px;
+	border: 1px solid #6a6868;
+  background: rgba(0, 0, 0, 0.4);
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+/*FORM ERROR MESSAGE*/
+.error{ color:#b2c831;}
+
+@media (max-width: 979px) {
+  .navbar-fixed-top {
+    margin-bottom: 0px;
+  }
+}
