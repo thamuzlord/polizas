@@ -12,6 +12,10 @@ class PolizasController {
       case "DocumentacionCliente":
       $this->DocumentacionCliente();
       break;
+
+      case "tablePolicies":
+      $this->tablePolicies();
+      break;
     }
   }
   public function DocumentacionCliente() {
@@ -20,6 +24,18 @@ class PolizasController {
     $mensaje = "";
     //$variable = $_POST["variable"];
     $Datos = $this->PolizasDao->DocumentacionCliente();
+    $return["Error"] = $error;
+    $return["Mensaje"] = $mensaje;
+    $return["Datos"] = $Datos;
+    echo json_encode($return);
+  }
+
+  public function tablePolicies() {
+    /*LAS VARIABLES ERROR Y MENSAJE SE ESTABLECEN PARA EL CONTROL DE ERRORES*/
+    $error = "N";
+    $mensaje = "";
+    //$variable = $_POST["variable"];
+    $Datos = $this->PolizasDao->tablePolicies();
     $return["Error"] = $error;
     $return["Mensaje"] = $mensaje;
     $return["Datos"] = $Datos;

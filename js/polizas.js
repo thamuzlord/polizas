@@ -1,7 +1,6 @@
 $(document).ready(function() {
-    console.log("Hola Archivo ppal js Polizas.js");
-});
 
+});
 
 function PeticionAjax(Datos) {
     var ResultadoPOST = false;
@@ -46,14 +45,14 @@ function errores(jqXHR, exception) {
     if (jqXHR.status == 404) {
         alert('No se ha podido conectar al destino');
     } else if (jqXHR.status == 500) {
-        /*alert('Error interno del servicio');*/
+        alert('Error interno del servicio');
     } else if (exception == 'parsererror') {
         //alert('La Peticion Falló');
     } else if (exception == 'timeout') {
-        /*alert('Se ha superado el tiempo de espera');*/
+        alert('Se ha superado el tiempo de espera');
     } else if (exception == 'abort') {
-        /*alert('Petición cancelada');*/
+        alert('Petición cancelada');
     } else if (jqXHR.status == 405) {
-        /*alert('La peticón no es correcta para dominios externos');*/
+        alert('La peticón no es correcta para dominios externos');
     }
 }
