@@ -19,8 +19,6 @@
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="js/dataTables.bootstrap.js"></script>
-    <link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
     <?php
       if(existe("mods/".@$_GET["name"]."/plugins.php"))
         {

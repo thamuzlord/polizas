@@ -18,7 +18,8 @@
 	</head>
 	<div class='row'>
 	  <div class='col-xs-12'>
-	        <table id='example1' class='table table-bordered table-striped'>
+			<div class="table-responsive">
+	        <table id='polizas_table' class='table table-bordered table-striped'>
 	          <thead>
                 <tr>
                   <th>ID</th>
@@ -43,73 +44,7 @@
 									<th>Observaciones</th>
                 </tr>
 	          </thead>
-	          <tbody>
-							<tr>
-								<td  >1</td>
-								<td  >123456</td>
-								<td  >999999</td>
-								<td  >Juan</td>
-								<td  >1</td>
-								<td  >Seguros</td>
-								<td  >12/02/2017</td>
-								<td  >12/02/2018</td>
-								<td  >13.000.000</td>
-								<td  >30</td>
-								<td  >40000</td>
-								<td  >60000</td>
-								<td  >8000</td>
-								<td  >30</td>
-								<td  >60000</td>
-								<td  >30</td>
-								<td  >30</td>
-								<td  >70</td>
-								<td  >Pedro</td>
-								<td  ></td>
-							</tr>
-							<tr>
-								<td  >1</td>
-								<td  >123456</td>
-								<td  >999999</td>
-								<td  >Diego</td>
-								<td  >1</td>
-								<td  >Seguros</td>
-								<td  >12/02/2017</td>
-								<td  >12/02/2018</td>
-								<td  >13.000.000</td>
-								<td  >30</td>
-								<td  >40000</td>
-								<td  >60000</td>
-								<td  >8000</td>
-								<td  >30</td>
-								<td  >60000</td>
-								<td  >30</td>
-								<td  >30</td>
-								<td  >70</td>
-								<td  >Pedro</td>
-								<td  ></td>
-							</tr>
-							<tr>
-								<td  >1</td>
-								<td  >123456</td>
-								<td  >999999</td>
-								<td  >Mateo</td>
-								<td  >1</td>
-								<td  >Seguros</td>
-								<td  >12/02/2017</td>
-								<td  >12/02/2018</td>
-								<td  >13.000.000</td>
-								<td  >30</td>
-								<td  >40000</td>
-								<td  >60000</td>
-								<td  >8000</td>
-								<td  >30</td>
-								<td  >60000</td>
-								<td  >30</td>
-								<td  >30</td>
-								<td  >70</td>
-								<td  >Pedro</td>
-								<td  ></td>
-							</tr>
+	          <tbody id='table_polizas'>
 	          </tbody>
             <tfoot>
               <tr>
@@ -136,5 +71,6 @@
               </tr>
             </tfoot>
           </table>
+				</div>
     </div>
   </div>

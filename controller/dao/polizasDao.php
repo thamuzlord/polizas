@@ -10,4 +10,10 @@ class PolizasDao {
     return $pdo->Consulta($sql, "S", "ASSOC");
   }
 
+  function tablePolicies(){
+    $pdo = new ClassPDO();
+    $sql = "SELECT * FROM polizas";
+    return $pdo->Consulta($sql, "S", "ASSOC");
+  }
+
 }

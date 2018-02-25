@@ -64,6 +64,20 @@ h5 {
     border-color: #2870a2 ;
   }
 
+	thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+thead th {
+	background-color: rgba(255, 176, 0, 0.2);
+	color: #2870a2 !important;
+	transition: all .25s;
+	border-radius:0px;
+	border-color: #2870a2;
+}
+
 /***********BLOCKS & WRAPS***********/
 
 /*--- Dash Unit / Used in Dashboard page ---*/
