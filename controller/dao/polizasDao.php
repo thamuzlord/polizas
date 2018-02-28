@@ -72,4 +72,10 @@ function DocumentacionCliente($cliente){
     return $pdo->Consulta($sql, "S", "ASSOC");
   }
 
+  function tipoUsuario(){
+    $pdo = new ClassPDO();
+    $sql = "SELECT * FROM permission";
+    return $pdo->Consulta($sql, "S", "ASSOC");
+  }  
+
 }

@@ -76,7 +76,7 @@
   <body>
     <div class="container">
       <div class="row">
-   		<div class="col-lg-offset-4 col-lg-4" style="margin-top:100px">
+   		<div class="col-lg-offset-4 col-lg-4  col-md-offset-4 col-md-4 col-xs-4" style="margin-top:100px">
    			<div class="block-unit" style="text-align:center; padding:8px 8px 8px 8px;">
 					<form class="cmxform" id="signupForm" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST">
 						<fieldset>
