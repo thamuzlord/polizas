@@ -80,7 +80,6 @@ CREATE TABLE `cliente` (
   `idRepresentanteLegal` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `tipoPersona` int(11) NOT NULL,
   PRIMARY KEY (`idRow`),
-  UNIQUE KEY `idFila_UNIQUE` (`idRow`),
   UNIQUE KEY `idCliente_UNIQUE` (`idCliente`),
   KEY `fk_tipoPersona_idx` (`tipoPersona`),
   CONSTRAINT `fk_tipoPersona` FOREIGN KEY (`tipoPersona`) REFERENCES `tipopersona` (`idTipoPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -108,14 +107,17 @@ CREATE TABLE `documentacion_cliente` (
   KEY `fk_idCliente_idx` (`idCliente`),
   KEY `fk_idUsuarioCargaDocumento_idx` (`idUsuarioCargaDocumento`),
   CONSTRAINT `fk_DocumentacionRequerida` FOREIGN KEY (`idDocumentacionRequerida`) REFERENCES `documentacion_requerida` (`idDocumentacionRequerida`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_idCliente` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_idCliente` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idRow`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_idUsuarioCargaDocumento` FOREIGN KEY (`idUsuarioCargaDocumento`) REFERENCES `lawyer` (`idLawyer`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 /*Data for the table `documentacion_cliente` */
 
 insert  into `documentacion_cliente`(`idRow`,`idDocumentacionCliente`,`idDocumentacionRequerida`,`idCliente`,`nombreArchivoFisico`,`fechaCargaDocumento`,`idUsuarioCargaDocumento`) values 
-(1,1,1,43559647,'slip_22/02/2018 10:31','0000-00-00 00:00:00',1);
+(1,1,1,1,'slip_22/02/2018 10:31','0000-00-00 00:00:00',1),
+(2,2,8,1,'8_20180228012527.pdf','2018-02-27 19:25:27',1),
+(3,3,12,1,'12_20180228012543.pdf','2018-02-27 19:25:43',1),
+(4,4,12,1,'12_20180228012554.pdf','2018-02-27 19:25:54',1);
 
 /*Table structure for table `documentacion_requerida` */
 
@@ -125,6 +127,7 @@ CREATE TABLE `documentacion_requerida` (
   `idRow` int(11) NOT NULL AUTO_INCREMENT,
   `idDocumentacionRequerida` int(11) NOT NULL,
   `nombreDocumento` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `nombreVisible` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `descripcionDocumento` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `personaAplica` varchar(1) COLLATE utf8_spanish_ci DEFAULT NULL,
   `estadoRequerida` varchar(1) COLLATE utf8_spanish_ci DEFAULT NULL,
@@ -135,24 +138,24 @@ CREATE TABLE `documentacion_requerida` (
 
 /*Data for the table `documentacion_requerida` */
 
-insert  into `documentacion_requerida`(`idRow`,`idDocumentacionRequerida`,`nombreDocumento`,`descripcionDocumento`,`personaAplica`,`estadoRequerida`) values 
-(1,1,'SLIP',NULL,'A','S'),
-(2,2,'Contrato de concesión minera',NULL,'A','S'),
-(3,3,'Certificado RMN / Cesión',NULL,'A','S'),
-(4,4,'Regalías / Canon',NULL,'A','S'),
-(5,5,'FBM',NULL,'A','S'),
-(6,6,'Última póliza',NULL,'A','S'),
-(7,7,'Última visita de fiscalización',NULL,'A','S'),
-(8,8,'Cédula',NULL,'A','S'),
-(9,9,'Declaración de renta',NULL,'N','S'),
-(10,10,'Certificado de ingresos por contador',NULL,'N','S'),
-(11,11,'Tarjeta profesional del contador',NULL,'N','S'),
-(12,12,'Extractos bancarios','Extractos bancarios del último semestre','N','S'),
-(13,13,'Certificado de existencia ',NULL,'J','S'),
-(14,14,'Cédula representante',NULL,'J','S'),
-(15,15,'Estados financieros',NULL,'J','S'),
-(16,16,'P&G',NULL,'J','S'),
-(17,17,'RUT','Registro Unico Tributario','J','S');
+insert  into `documentacion_requerida`(`idRow`,`idDocumentacionRequerida`,`nombreDocumento`,`nombreVisible`,`descripcionDocumento`,`personaAplica`,`estadoRequerida`) values 
+(1,1,'SLIP','SLIP',NULL,'A','S'),
+(2,2,'Contrato de concesión minera','CONCESION_MINERA',NULL,'A','S'),
+(3,3,'Certificado RMN / Cesión','RMN',NULL,'A','S'),
+(4,4,'Regalías / Canon','CANON',NULL,'A','S'),
+(5,5,'FBM','FBM',NULL,'A','S'),
+(6,6,'Última póliza','POLIZA',NULL,'A','S'),
+(7,7,'Última visita de fiscalización','FISCALIZACION',NULL,'A','S'),
+(8,8,'Cédula','CEDULA',NULL,'A','S'),
+(9,9,'Declaración de renta','RENTA',NULL,'N','S'),
+(10,10,'Certificado de ingresos por contador','CERT_INGRESOS',NULL,'N','S'),
+(11,11,'Tarjeta profesional del contador','TP_CONTADOR',NULL,'N','S'),
+(12,12,'Extractos bancarios','EXT_BANCO','Extractos bancarios del último semestre','N','S'),
+(13,13,'Certificado de existencia ','EXISTENCIA',NULL,'J','S'),
+(14,14,'Cédula representante','CED_REP',NULL,'J','S'),
+(15,15,'Estados financieros','ESTADOS',NULL,'J','S'),
+(16,16,'P&G','PG',NULL,'J','S'),
+(17,17,'RUT','RUT','Registro Unico Tributario','J','S');
 
 /*Table structure for table `etapa_titulo_minero` */
 
@@ -184,12 +187,12 @@ CREATE TABLE `lawyer` (
   `idLawyer` int(11) NOT NULL,
   `username` varchar(16) COLLATE utf8_spanish_ci NOT NULL,
   `pass` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `primerNombre` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `segundoNombre` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `primerApellido` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `segundoApellido` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `celular` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `emailL` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `primerNombreL` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `segundoNombreL` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `primerApellidoL` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `segundoApellidoL` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `celularL` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `permission` int(11) NOT NULL,
   PRIMARY KEY (`idRow`),
@@ -201,7 +204,7 @@ CREATE TABLE `lawyer` (
 
 /*Data for the table `lawyer` */
 
-insert  into `lawyer`(`idRow`,`idLawyer`,`username`,`pass`,`email`,`primerNombre`,`segundoNombre`,`primerApellido`,`segundoApellido`,`celular`,`create_time`,`permission`) values 
+insert  into `lawyer`(`idRow`,`idLawyer`,`username`,`pass`,`emailL`,`primerNombreL`,`segundoNombreL`,`primerApellidoL`,`segundoApellidoL`,`celularL`,`create_time`,`permission`) values 
 (1,1,'carlos','123','carlos@gmail.com','Carlos','Andrés','Vasco','Bastidas','3193892764',NULL,3),
 (2,2,'sergio','123','sergio@gmail.com','Sergio',NULL,NULL,NULL,NULL,NULL,3),
 (3,3,'iza','123','iza@gmail.com','Elizabeth',NULL,NULL,NULL,NULL,NULL,2),
@@ -216,7 +219,7 @@ CREATE TABLE `mineral` (
   `idMineral` int(11) NOT NULL,
   `nombreMineral` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `tipoMineral` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `precioMineral` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `precioMineralM` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`idRow`),
   UNIQUE KEY `idFila_UNIQUE` (`idRow`),
   UNIQUE KEY `idMineral_UNIQUE` (`idMineral`)
@@ -224,7 +227,7 @@ CREATE TABLE `mineral` (
 
 /*Data for the table `mineral` */
 
-insert  into `mineral`(`idRow`,`idMineral`,`nombreMineral`,`tipoMineral`,`precioMineral`) values 
+insert  into `mineral`(`idRow`,`idMineral`,`nombreMineral`,`tipoMineral`,`precioMineralM`) values 
 (1,1,'Oro','Metálico','98265.65'),
 (2,2,'Plata','Metálico','1262.39'),
 (3,3,'Platino','Metálico','73103.90'),
@@ -267,6 +270,7 @@ CREATE TABLE `poliza` (
   `idCliente` int(11) NOT NULL,
   `numeroPoliza` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `idAseguradora` int(11) NOT NULL,
+  `gastosExpedicion` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `fechaAdquisicion` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
   `fechaVencimiento` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
   `valorAsegurado` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
@@ -289,20 +293,20 @@ CREATE TABLE `poliza` (
   UNIQUE KEY `idRow_UNIQUE` (`idRow`),
   KEY `idLawyer_idx` (`idLawyer`),
   KEY `etapaTituloMinero_idx` (`etapaTituloMinero`),
-  KEY `idCliente` (`idCliente`),
+  KEY `idCliente_idx` (`idCliente`),
   KEY `idAseguradora` (`idAseguradora`),
   KEY `idMineral` (`idMineral`),
   CONSTRAINT `etapaTituloMinero` FOREIGN KEY (`etapaTituloMinero`) REFERENCES `etapa_titulo_minero` (`idEtapaTituloMinero`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idAseguradora` FOREIGN KEY (`idAseguradora`) REFERENCES `aseguradora` (`idAseguradora`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `idCliente` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idCliente` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idRow`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idLawyer` FOREIGN KEY (`idLawyer`) REFERENCES `lawyer` (`idLawyer`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idMineral` FOREIGN KEY (`idMineral`) REFERENCES `mineral` (`idMineral`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 /*Data for the table `poliza` */
 
-insert  into `poliza`(`idRow`,`idPoliza`,`idMineral`,`precioMineral`,`tituloMinero`,`etapaTituloMinero`,`codigoRMN`,`idCliente`,`numeroPoliza`,`idAseguradora`,`fechaAdquisicion`,`fechaVencimiento`,`valorAsegurado`,`porcentajePrima`,`prima`,`tasaParaComision`,`valorComision`,`porcentajeRetencion`,`totalRetencion`,`porcentajeAsesor`,`totalAsesor`,`porcentajeEmpresa`,`totalEmpresa`,`observaciones`,`idLawyer`,`renovacion`,`fechaRenovacion`) values 
-(1,1,1,NULL,'001-002',1,'CAV-0001',43559647,'256987',1,'01/01/2018','12/12/2018','30000000','5','1500000','30','450000','0.11','49500','30','120150','70','280350',NULL,1,NULL,NULL);
+insert  into `poliza`(`idRow`,`idPoliza`,`idMineral`,`precioMineral`,`tituloMinero`,`etapaTituloMinero`,`codigoRMN`,`idCliente`,`numeroPoliza`,`idAseguradora`,`gastosExpedicion`,`fechaAdquisicion`,`fechaVencimiento`,`valorAsegurado`,`porcentajePrima`,`prima`,`tasaParaComision`,`valorComision`,`porcentajeRetencion`,`totalRetencion`,`porcentajeAsesor`,`totalAsesor`,`porcentajeEmpresa`,`totalEmpresa`,`observaciones`,`idLawyer`,`renovacion`,`fechaRenovacion`) values 
+(1,1,1,NULL,'001-002',1,'CAV-0001',1,'256987',1,NULL,'01/01/2018','12/12/2018','30000000','5','1500000','30','450000','0.11','49500','30','120150','70','280350',NULL,1,NULL,NULL);
 
 /*Table structure for table `tipopersona` */
 
@@ -337,12 +341,74 @@ DROP TABLE IF EXISTS `access`;
  `TipoUsuario` varchar(45) 
 )*/;
 
+/*Table structure for table `polizas` */
+
+DROP TABLE IF EXISTS `polizas`;
+
+/*!50001 DROP VIEW IF EXISTS `polizas` */;
+/*!50001 DROP TABLE IF EXISTS `polizas` */;
+
+/*!50001 CREATE TABLE  `polizas`(
+ `idpoliza` int(11) ,
+ `nombreMineral` varchar(255) ,
+ `precioMineral` varchar(255) ,
+ `tituloMinero` varchar(255) ,
+ `etapaTituloMinero` varchar(45) ,
+ `porcentajeLiquidacion` varchar(45) ,
+ `codigoRMN` varchar(255) ,
+ `idCliente` int(11) ,
+ `idRepresentanteLegal` varchar(255) ,
+ `NIT` varchar(255) ,
+ `primerNombre` varchar(45) ,
+ `segundoNombre` varchar(45) ,
+ `primerApellido` varchar(45) ,
+ `segundoApellido` varchar(45) ,
+ `tipoPersona` varchar(45) ,
+ `telefono` varchar(255) ,
+ `direccion` varchar(255) ,
+ `email` varchar(255) ,
+ `primerApellidoRepresentante` varchar(255) ,
+ `segundoApellidoRepresentante` varchar(255) ,
+ `primerNombreRepresentante` varchar(255) ,
+ `segundoNombreRepresentante` varchar(255) ,
+ `numeroPoliza` varchar(255) ,
+ `nombreAseguradora` varchar(255) ,
+ `fechaAdquisicion` varchar(45) ,
+ `fechaVencimiento` varchar(45) ,
+ `valorAsegurado` varchar(255) ,
+ `porcentajePrima` varchar(255) ,
+ `prima` varchar(255) ,
+ `tasaParaComision` varchar(255) ,
+ `valorComision` varchar(255) ,
+ `porcentajeRetencion` varchar(255) ,
+ `totalRetencion` varchar(255) ,
+ `porcentajeAsesor` varchar(255) ,
+ `totalAsesor` varchar(255) ,
+ `porcentajeEmpresa` varchar(255) ,
+ `totalEmpresa` varchar(255) ,
+ `gastosExpedicion` varchar(255) ,
+ `observaciones` varchar(255) ,
+ `primerApellidoL` varchar(45) ,
+ `segundoApellidoL` varchar(45) ,
+ `primerNombreL` varchar(45) ,
+ `segundoNombreL` varchar(45) ,
+ `renovacion` varchar(45) ,
+ `fechaRenovacion` varchar(45) 
+)*/;
+
 /*View structure for view access */
 
 /*!50001 DROP TABLE IF EXISTS `access` */;
 /*!50001 DROP VIEW IF EXISTS `access` */;
 
 /*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `access` AS (select `l`.`idLawyer` AS `idLawyer`,`l`.`username` AS `username`,`l`.`pass` AS `pass`,`p`.`TipoUsuario` AS `TipoUsuario` from (`lawyer` `l` join `permission` `p` on((`p`.`idTipoUsuario` = `l`.`permission`)))) */;
+
+/*View structure for view polizas */
+
+/*!50001 DROP TABLE IF EXISTS `polizas` */;
+/*!50001 DROP VIEW IF EXISTS `polizas` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `polizas` AS (select `p`.`idPoliza` AS `idpoliza`,`m`.`nombreMineral` AS `nombreMineral`,`p`.`precioMineral` AS `precioMineral`,`p`.`tituloMinero` AS `tituloMinero`,`etm`.`etapaTituloMinero` AS `etapaTituloMinero`,`etm`.`porcentajeLiquidacion` AS `porcentajeLiquidacion`,`p`.`codigoRMN` AS `codigoRMN`,`c`.`idCliente` AS `idCliente`,`c`.`idRepresentanteLegal` AS `idRepresentanteLegal`,`c`.`NIT` AS `NIT`,coalesce(`c`.`primerNombre`,'') AS `primerNombre`,coalesce(`c`.`segundoNombre`,'') AS `segundoNombre`,coalesce(`c`.`primerApellido`,'') AS `primerApellido`,coalesce(`c`.`segundoApellido`,'') AS `segundoApellido`,`tp`.`tipoPersona` AS `tipoPersona`,`c`.`telefono` AS `telefono`,`c`.`direccion` AS `direccion`,`c`.`email` AS `email`,coalesce(`c`.`primerApellidoRepresentante`,'') AS `primerApellidoRepresentante`,coalesce(`c`.`segundoApellidoRepresentante`,'') AS `segundoApellidoRepresentante`,coalesce(`c`.`primerNombreRepresentante`,'') AS `primerNombreRepresentante`,coalesce(`c`.`segundoNombreRepresentante`,'') AS `segundoNombreRepresentante`,`p`.`numeroPoliza` AS `numeroPoliza`,`a`.`nombreAseguradora` AS `nombreAseguradora`,`p`.`fechaAdquisicion` AS `fechaAdquisicion`,`p`.`fechaVencimiento` AS `fechaVencimiento`,`p`.`valorAsegurado` AS `valorAsegurado`,`p`.`porcentajePrima` AS `porcentajePrima`,`p`.`prima` AS `prima`,`p`.`tasaParaComision` AS `tasaParaComision`,`p`.`valorComision` AS `valorComision`,`p`.`porcentajeRetencion` AS `porcentajeRetencion`,`p`.`totalRetencion` AS `totalRetencion`,`p`.`porcentajeAsesor` AS `porcentajeAsesor`,`p`.`totalAsesor` AS `totalAsesor`,`p`.`porcentajeEmpresa` AS `porcentajeEmpresa`,`p`.`totalEmpresa` AS `totalEmpresa`,`p`.`gastosExpedicion` AS `gastosExpedicion`,coalesce(`p`.`observaciones`,'') AS `observaciones`,coalesce(`l`.`primerApellidoL`,'') AS `primerApellidoL`,coalesce(`l`.`segundoApellidoL`,'') AS `segundoApellidoL`,coalesce(`l`.`primerNombreL`,'') AS `primerNombreL`,coalesce(`l`.`segundoNombreL`,'') AS `segundoNombreL`,`p`.`renovacion` AS `renovacion`,`p`.`fechaRenovacion` AS `fechaRenovacion` from ((((((`poliza` `p` join `mineral` `m` on((`p`.`idMineral` = `m`.`idMineral`))) join `etapa_titulo_minero` `etm` on((`p`.`etapaTituloMinero` = `etm`.`idEtapaTituloMinero`))) join `cliente` `c` on((`p`.`idCliente` = `c`.`idRow`))) join `aseguradora` `a` on((`p`.`idAseguradora` = `a`.`idAseguradora`))) join `lawyer` `l` on((`p`.`idLawyer` = `l`.`idLawyer`))) join `tipopersona` `tp` on((`tp`.`idTipoPersona` = `c`.`tipoPersona`)))) */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
