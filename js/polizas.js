@@ -1,6 +1,6 @@
-$(document).ready(function() {
-
+$(document).ready(function() {    
 });
+
 
 function PeticionAjax(Datos) {
     var ResultadoPOST = false;
@@ -32,6 +32,33 @@ function PeticionAjax(Datos) {
     return ResultadoPOST;
 }
 
+function PeticionAjaxArchivo(Datos) {
+    $.Url='enrout.php?cmd=GuardarArchivo';
+    $.ajax({
+        type : 'POST',
+        url : $.Url,
+        contentType:false,
+        data: Datos,
+        dataType : 'json',
+        processData:false,
+        cache:false,
+        async:false,
+        success: function(data) {
+            ResultadoPOST = data;
+            //AjaxFinalizarIndicadorPeticion();
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            errores(XMLHttpRequest, textStatus);
+            //AjaxFinalizarIndicadorPeticion();
+        },
+        complete: function() {
+            //hideLightbox_loader();
+            //AjaxFinalizarIndicadorPeticion();
+        }
+    });
+    return ResultadoPOST;
+}
+
 function errores(jqXHR, exception) {
     //console.log(jqXHR);
     if (jqXHR.responseText != '') {
@@ -45,14 +72,14 @@ function errores(jqXHR, exception) {
     if (jqXHR.status == 404) {
         alert('No se ha podido conectar al destino');
     } else if (jqXHR.status == 500) {
-        alert('Error interno del servicio');
+        /*alert('Error interno del servicio');*/
     } else if (exception == 'parsererror') {
         //alert('La Peticion Falló');
     } else if (exception == 'timeout') {
-        alert('Se ha superado el tiempo de espera');
+        /*alert('Se ha superado el tiempo de espera');*/
     } else if (exception == 'abort') {
-        alert('Petición cancelada');
+        /*alert('Petición cancelada');*/
     } else if (jqXHR.status == 405) {
-        alert('La peticón no es correcta para dominios externos');
+        /*alert('La peticón no es correcta para dominios externos');*/
     }
 }
