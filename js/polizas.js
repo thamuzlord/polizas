@@ -1,6 +1,9 @@
-$(document).ready(function() {    
+$(document).ready(function() {
 });
 
+function resetForm(form){
+  $('#'+form+'')[0].reset();
+}
 
 function PeticionAjax(Datos) {
     var ResultadoPOST = false;

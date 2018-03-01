@@ -72,4 +72,38 @@ function DocumentacionCliente($cliente){
     return $pdo->Consulta($sql, "S", "ASSOC");
   }
 
+  function tipoUsuario(){
+    $pdo = new ClassPDO();
+    $sql = "SELECT * FROM permission";
+    return $pdo->Consulta($sql, "S", "ASSOC");
+  }
+
+  function regUsuario($idLawyer,$primerNombreL,$segundoNombreL,$primerApellidoL,$segundoApellidoL,$emailL,$username,$pass,$permission){
+    $pdo = new ClassPDO();
+    $sql = "INSERT INTO lawyer (
+    	idLawyer
+    	,username
+    	,pass
+    	,emailL
+    	,primerNombreL
+    	,segundoNombreL
+    	,primerApellidoL
+    	,segundoApellidoL
+    	,celularL
+    	,permission
+    	) VALUES (
+        '$idLawyer',
+        '$username',
+        '$pass',
+        '$emailL',
+        '$primerNombreL',
+        '$segundoNombreL',
+        '$primerApellidoL',
+        '$segundoApellidoL',
+        '',
+        '$permission'
+    	)";
+    return $pdo->Consulta($sql, "N", "ASSOC");
+  }
+
 }

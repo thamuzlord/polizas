@@ -13,10 +13,10 @@ class PolizasController {
       $this->DocumentacionCliente();
       break;
 
-      case "tablePolicies":			 
+      case "tablePolicies":
       $this->tablePolicies();
       break;
-	  
+
 	  case "ListadoClientes":
         $this->ListadoClientes();
         break;
@@ -31,14 +31,22 @@ class PolizasController {
       case "GuardarArchivo":
         $this->GuardarArchivo();
         break;
+
+    case "tipoUsuario":
+      $this->tipoUsuario();
+      break;
+
+    case "regUsuario":
+      $this->regUsuario();
+      break;
     }
   }
-  public function DocumentacionCliente() 
+  public function DocumentacionCliente()
   {
     /*LAS VARIABLES ERROR Y MENSAJE SE ESTABLECEN PARA EL CONTROL DE ERRORES*/
     $error = "N";
     $mensaje = "";
-   
+
     $Cliente = $_POST["Cliente"];
     $TipoCliente = $_POST["TipoCliente"];
 
@@ -55,13 +63,13 @@ class PolizasController {
     $return["DctosCliente"] = $DocumentacionCliente;
     echo json_encode($return);
   }
-  
+
     public function ListadoDocumentos() {
     /*LAS VARIABLES ERROR Y MENSAJE SE ESTABLECEN PARA EL CONTROL DE ERRORES*/
     $error = "N";
     $mensaje = "";
     $Cliente = $_POST["Cliente"];
-    
+
 
     $Datos = $this->PolizasDao->ListadoDocumentos($Cliente);
     $return["Error"] = $error;
@@ -69,7 +77,7 @@ class PolizasController {
     $return["Datos"] = $Datos;
     echo json_encode($return);
   }
-  
+
   public function ListadoClientes() {
     /*LAS VARIABLES ERROR Y MENSAJE SE ESTABLECEN PARA EL CONTROL DE ERRORES*/
     $error = "N";
@@ -118,7 +126,7 @@ class PolizasController {
     if ($nombre_archivo != "")
     {
         $destino_formato = $nombre_carpeta."/".$nombre_archivo;
-        if (copy( $_FILES["Archivo"]['tmp_name'],$destino_formato)) {$status = "1";} 
+        if (copy( $_FILES["Archivo"]['tmp_name'],$destino_formato)) {$status = "1";}
     }
 
     $return["Error"] = $error;
@@ -131,14 +139,14 @@ class PolizasController {
   {
       $fecha = getdate();
 
-      $anio = $fecha["year"];    
+      $anio = $fecha["year"];
       $mes = $fecha["mon"];
       $dia = $fecha["mday"];
 
       $hora = $fecha["hours"];
       $min = $fecha["minutes"];
       $seg = $fecha["seconds"];
-      
+
       $hoy = $anio;
       $hoy .= $this->ContarCaracteres($mes);
       $hoy .= $this->ContarCaracteres($dia);
@@ -147,7 +155,7 @@ class PolizasController {
       $hoy .= $this->ContarCaracteres($seg);
 
       return $hoy;
-  } 
+  }
 
   public function ContarCaracteres($dato)
   {
@@ -164,6 +172,38 @@ class PolizasController {
     $mensaje = "";
     //$variable = $_POST["variable"];
     $Datos = $this->PolizasDao->tablePolicies();
+    $return["Error"] = $error;
+    $return["Mensaje"] = $mensaje;
+    $return["Datos"] = $Datos;
+    echo json_encode($return);
+  }
+
+  public function tipoUsuario() {
+    /*LAS VARIABLES ERROR Y MENSAJE SE ESTABLECEN PARA EL CONTROL DE ERRORES*/
+    $error = "N";
+    $mensaje = "";
+    //$variable = $_POST["variable"];
+    $Datos = $this->PolizasDao->tipoUsuario();
+    $return["Error"] = $error;
+    $return["Mensaje"] = $mensaje;
+    $return["Datos"] = $Datos;
+    echo json_encode($return);
+  }
+
+  public function regUsuario() {
+    /*LAS VARIABLES ERROR Y MENSAJE SE ESTABLECEN PARA EL CONTROL DE ERRORES*/
+    $error = "N";
+    $mensaje = "";
+    $idLawyer = $_POST["idLawyer"];
+    $primerNombreL = $_POST["primerNombreL"];
+    $segundoNombreL = $_POST["segundoNombreL"];
+    $primerApellidoL = $_POST["primerApellidoL"];
+    $segundoApellidoL = $_POST["segundoApellidoL"];
+    $emailL = $_POST["emailL"];
+    $username = $_POST["username"];
+    $pass = $_POST["pass"];
+    $permission = $_POST["permission"];
+    $Datos = $this->PolizasDao->regUsuario($idLawyer,$primerNombreL,$segundoNombreL,$primerApellidoL,$segundoApellidoL,$emailL,$username,$pass,$permission);
     $return["Error"] = $error;
     $return["Mensaje"] = $mensaje;
     $return["Datos"] = $Datos;

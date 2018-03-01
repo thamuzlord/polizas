@@ -19,6 +19,8 @@
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="js/dataTables.bootstrap.js"></script>
+    <script src="js/sweetalert.js"></script>
+    <link rel="stylesheet" href="styles/sweetalert.css">
     <?php
       if(existe("mods/".@$_GET["name"]."/plugins.php"))
         {
