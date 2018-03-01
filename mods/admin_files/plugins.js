@@ -44,15 +44,17 @@ function CargarArbolArchivos()
 
 		$.each($.Documentacion, function(item, dr){
 			arc += '<div class="size16"><i class="icon ion-social-buffer"></i><strong>&nbsp;'+dr.nombreDocumento+'</strong></div>';	
-			
+			nombre= dr.nombreVisible;
+
 			var paso = 0;
 			$.each($DctosCliente, function(item2, dc)
 			{	
 				if(dc.idDocumentacionRequerida==dr.idDocumentacionRequerida)
 				{
 					paso++;
-					nombrearc = dc.nombreArchivoFisico;
-					arc += '<div style="margin-left:30px">'+ConsultarImagenIcon( nombrearc )+'&nbsp;'+nombrearc+'</div>';
+					nombrearc = GenerarNombreDoc(dr.nombreVisible,dc.nombreArchivoFisico);
+
+					arc += '<a style="font-size:13px;color:#0000CC" href="mods/admin_files/mods/upload_docs.php?arc='+dc.idRow+'" target="_blank"><div style="margin-left:30px">'+ConsultarImagenIcon( nombrearc )+'&nbsp;'+nombrearc+'</div></a>';
 				}
 			});
 
@@ -65,7 +67,16 @@ function CargarArbolArchivos()
 
 	$("#arbolDocumentos").html(arc);
 }
+function GenerarNombreDoc(nombre1, nombre2)
+{
+	/*GENERAR NOMBRE ARCHIVO*/
+	var archi = nombre1.toLowerCase();
+	array = nombre2.split("_");
+	extension = nombre2.substring(nombre2.lastIndexOf('.'));;
+	nArchivo =  archi+"_"+array[1].substring(0,8)+extension;
 
+	return nArchivo;
+}
 
 function ConsultarClientes() {
 	//var datosCliente=[];
@@ -105,6 +116,14 @@ function ListadoClientes()
 
 function VistaAddArchivo()
 {
+	cliente = $("#cbo_cliente").val();
+
+	if(cliente=="" || cliente==null){
+		$('#modalGeneral').modal('show');
+		$("#modalContenido").html("Debe seleccionar un cliente");
+		return false;
+	}
+
 	uls ="";
 
 	uls += `<div style="margin:25px 10px">

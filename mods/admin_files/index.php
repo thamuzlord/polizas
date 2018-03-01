@@ -29,6 +29,5 @@ echo"</div>";
 //FIN DEL CONTENIDO
 ?>
 <script>
-    //DocumentacionCliente();
     ConsultarClientes();
 </script>
