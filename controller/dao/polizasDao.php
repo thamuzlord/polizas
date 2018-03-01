@@ -106,4 +106,11 @@ function DocumentacionCliente($cliente){
     return $pdo->Consulta($sql, "N", "ASSOC");
   }
 
+  function infoAbogado(){
+    $pdo = new ClassPDO();
+    $idUser= $_SESSION['idUser'];
+    $sql = "SELECT * FROM lawyer WHERE idLawyer = '$idUser'";
+    return $pdo->Consulta($sql, "S", "ASSOC");
+  }
+
 }

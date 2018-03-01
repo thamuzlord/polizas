@@ -1,7 +1,7 @@
 <?php
 @$mod=$_GET["mod"];
 $name=$_GET["name"];
-//include("bloks/menu.php");
+include("bloks/menu.php");
 //INICIO DEL CONTENIDO
 //Lo que hace esto es casi lo mismo que el modulos.php pero solo para la carpeta mods del modulo actual
 function veru($mo)

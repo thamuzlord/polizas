@@ -15,8 +15,8 @@
   color:#FFF;
   font-size:40px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  transition:.3s;  
-}	
+  transition:.3s;
+}
 
 .botonAddAdjunto:hover{
   width:70px;
@@ -25,7 +25,7 @@
 }
 
 .rotate {
-  display: inline-block; 
+  display: inline-block;
   transform: rotate(45deg);
 }
 
@@ -48,7 +48,7 @@
 </style>
 
 <div class="fixed">
-	
+
 	<div class="row">
 		<h1>Módulo de administración de archivos</h1>
 	</div>
@@ -81,6 +81,3 @@
 	</div>
 	</div>
 </div>
-
-
-

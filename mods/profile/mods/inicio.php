@@ -3,21 +3,21 @@
 		<div class="register-info-wraper">
 			<div id="register-info">
 				<div class="cont2">
-					<h2>Carlos Vasco</h2>
+					<h2 id="nombreAbogado"></h2>
 				</div>
 				<div class="row">
 					<div class="col-lg-3">
 						<div class="cont3">
-							<p><ok>Nombre de Usuario:</ok> admon</p>
-							<p><ok>E-Mail:</ok> hola@basicoh.com</p>
-							<p><ok>Nombre Completo:</ok> Carlos Vasco</p>
+							<p><ok>Nombre de Usuario:</ok> <span id="nombreUsuarioAbogado"></span></p>
+							<p><ok>E-Mail:</ok> <span id="emailAbogado"></span></p>
+							<p><ok>Nombre Completo:</ok> <span id="nombreAbogado"></span></p>
 						</div>
 					</div>
 					<div class="col-lg-3">
 						<div class="cont3">
-						<p><ok>Registrado:</ok> Febrero 5, 2018</p>
-						<p><ok>Teléfono:</ok> +34 619 663553</p>
-						<p><ok>Celular</ok> +34 603 093384</p>
+						<p><ok>Registrado:</ok><span id="fechaRegistro"></span></p>
+						<p><ok>Teléfono:</ok> <span id="telefonoAbogado"></span></p>
+						<p><ok>Celular</ok> <span id="celularAbogado"></span></p>
 						</div>
 					</div>
 				</div><!-- /inner row -->

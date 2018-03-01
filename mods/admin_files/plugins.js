@@ -34,21 +34,21 @@ function DocumentacionCliente()
 }
 
 function CargarArbolArchivos()
-{	
+{
 	var arc = "";
-	
+
 	if( $.Documentacion!="" )
 	{
 		arc += '<div style="font-size:20px;">LISTA DE ARCHIVOS</div>';
 		arc += '<div style="margin-left:35px">';
 
 		$.each($.Documentacion, function(item, dr){
-			arc += '<div class="size16"><i class="icon ion-social-buffer"></i><strong>&nbsp;'+dr.nombreDocumento+'</strong></div>';	
+			arc += '<div class="size16"><i class="icon ion-social-buffer"></i><strong>&nbsp;'+dr.nombreDocumento+'</strong></div>';
 			nombre= dr.nombreVisible;
 
 			var paso = 0;
 			$.each($DctosCliente, function(item2, dc)
-			{	
+			{
 				if(dc.idDocumentacionRequerida==dr.idDocumentacionRequerida)
 				{
 					paso++;
@@ -61,7 +61,7 @@ function CargarArbolArchivos()
 			if(paso==0){
 				arc += '<div style="margin-left:30px"><i class="icon ion-social-buffer-outline"></i>&nbsp;Sin documentos</div>';
 			}
-		}); 
+		});
 		arc += '</div>';
 	}
 
@@ -101,8 +101,8 @@ function ConsultarClientes() {
 function ListadoClientes()
 {
 	if(datosCliente!=""){
-		
-		var combo = '<option value="">Seleccionar cliente.....</option>';
+
+		var combo = '<option value="">Seleccionar un cliente</option>';
 		$.each(datosCliente, function (x, y){
 			combo += '<option value="'+y.idRow+'" data-tipo="'+y.tipoPersona+'">'+y.NombreCliente+'</option>'
 		})
@@ -129,7 +129,7 @@ function VistaAddArchivo()
 	uls += `<div style="margin:25px 10px">
 				<strong>Seleccione el documento que desea enviar:</label>
 			</div>
-			
+
 			<div class="row" style="margin:20px 10px">
 				<div class="col-sm-10">
 					<label for="documento" class="col-sm-4" >Documento:</label>
@@ -153,7 +153,7 @@ function VistaAddArchivo()
 					</div>
 				</div>
 			</div>
-			`	
+			`
 
 	$('#modalGeneral').modal('show');
 
@@ -177,9 +177,9 @@ function ActivarEnvio(event, element)
     //CAPTURAMOS EL ID DEL INPUT FILE SELECCIONADO
     var id_elemento = $(element).prop("id");
     var id_item = $("#cbo_documentos").val();
-    
+
     var html="";
-	
+
 	$('#botonEnviar').show();
 
 	if(id_item!=""){
@@ -187,36 +187,36 @@ function ActivarEnvio(event, element)
 	    //MOSTRAMOS EL MENSAJE (Cargando...) DE LA FILA
 	    //CREAMOS EL BOTON UPLOAD, EL CUAL SUBIRA EL ARCHIVO
 	    html += '<button style="width:85px" id="btn-up" onclick="GuardarDocumento()" class="btn btn-primary btn-file btn-file">Enviar</button>';
-	    		
+
 	    $('#botonEnviar').html(html);
-	   
+
 	}else{
-		alert("Debe seleccionar un documento");
+		swal("Debe seleccionar un documento");
 		return false;
-	}    
-    
+	}
+
 }
 
 function GuardarDocumento()
-{ 
+{
 	var datos = new FormData();
-	
+
 	datos.append("accion",'GuardarDocumento');
-	
-	var ExtensionesValidas = new Array(".jpg",".png",".pdf",".doc",".docx",".xls",".xlsx");
+
+	var ExtensionesValidas = new Array(".jpg",".jpg",".png",".pdf",".doc",".docx",".xls",".xlsx",".xlsxs");
 
 	/*OBTENER EL NOMBRE DEL ARCHIVO*/
 	var Archivo = document.getElementById("archivo").files[0];
 	var NombreArchivoEnvio = Archivo.name;
 	var ExtensionArchivo = NombreArchivoEnvio.toLowerCase();
 	ExtensionArchivo = ExtensionArchivo.substring(ExtensionArchivo.lastIndexOf('.'));
-		
-	
-	if (ExtensionesValidas.indexOf(ExtensionArchivo) >= 0) 
-	{		
+
+
+	if (ExtensionesValidas.indexOf(ExtensionArchivo) >= 0)
+	{
 		/*IMAGEN */
 		var tamaño_archivo=(Archivo.size)/(1024*1024);
-		
+
 		if(tamaño_archivo<5)
 		{
 			/*****************IMAGEN********************/
@@ -225,13 +225,13 @@ function GuardarDocumento()
 			datos.append("Extension",ExtensionArchivo);
 			datos.append("Cliente",$("#cbo_cliente").val());
 			/*********************************************/
-		
+
 		    var datosRespuesta = PeticionAjaxArchivo(datos);
 
 		    $('#modalGeneral').modal('hide');
 		    DocumentacionCliente();
 			return false
-		    
+
 
 		    if (datosRespuesta != false && datosRespuesta != '') {
 		        //RECIBIMOS ARRAY CON LOS USUARIOS DE LA BASE DE DATOS
@@ -240,25 +240,23 @@ function GuardarDocumento()
 		        return true;
 
 		    } else {
-		        alert("Error al listar los usuarios.");
+		        alert("Error al listar los documentos.");
 		        return false;
 		    }
-
-
-
 			return false;
 		}else{
-			alert("No se puede subir archivos de más de 5 MB")	;
+			swal("No se puede subir archivos de más de 5 MB");
 			return false;
 		}
 	}
 	else
 	{
 		if($("#archivo").val()==""){
-			alert('Debe seleccionar un archivo')
-			return false			
+			swal("Debe seleccionar un archivo");
+			return false
 		}else{
-			alert("La extensión "+ExtensionArchivo+" no es válida \n\n Puede subir archivos en PDF ó Imagenes con formato PNG o JPG y documentos")
+			/*alert("La extensión "+ExtensionArchivo+" no es válida \n\n Puede subir archivos en PDF ó Imagenes con formato PNG o JPG y documentos")*/
+			swal("La extensión "+ExtensionArchivo+" no es válida", "Puede subir archivos con extensión: .jpg, .jpg, .png, .pdf, .doc, .docx, .xls, .xlsx, .xlsxs", "warning");
 			return false;
 		}
 	}
@@ -268,7 +266,7 @@ function ConsultarImagenIcon(dat)
 {
 	extensionArch = dat.substring(dat.lastIndexOf('.'));
 
-	if(extensionArch==".jpg" || extensionArch==".png"){
+	if(extensionArch==".jpg" || extensionArch==".png" || extensionArch==".jpeg"){
 		img = '<i class="icon ion-android-image"></i>';
 	}else{
 		img = '<i class="icon ion-android-list"></i>';

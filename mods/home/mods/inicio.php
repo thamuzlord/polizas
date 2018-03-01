@@ -16,6 +16,7 @@
 	  }
 	  </script>
 	</head>
+	<br>
 	<div class='row'>
 	  <div class='col-xs-12'>
 			<div class="table-responsive">
@@ -74,3 +75,15 @@
 				</div>
     </div>
   </div>
+	<div class="modal fade" id="modalGeneral" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
+		<div class="modal-dialog" role="document">
+		<div class="modal-content" style="">
+		  <div class="modal-header text-right">
+			<button type="button" class="fechar-modal" data-dismiss="modal" aria-label="Close" title="Cerrar"><span aria-hidden="true">X</span></button>
+		  </div>
+		  <div class="modal-body" id="modalContenido">
+
+		  </div>
+		</div>
+		</div>
+	</div>
