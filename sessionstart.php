@@ -17,7 +17,7 @@ if(isset($_SESSION['usuario'])){
   //error_log(print_r($resultado,1),0);
   if($resultado!==false){
   	$_SESSION['usuario']=$username;
-	$_SESSION['idUser']=$resultado['idLawyer'];
+	  $_SESSION['idUser']=$resultado['idLawyer'];
   	header('location:mods.php?name=home');}
 else{
 	$errores.='Usuario o Contraseña Incorrectos</p>';}}

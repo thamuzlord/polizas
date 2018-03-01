@@ -2,6 +2,10 @@ $(document).ready(function() {
   tablePolicies();
 });
 
+function newclient(){
+  $('#modalGeneral').modal('show');
+}
+
 $(function () {
   $("#polizas_table").DataTable({
     "paging": true,

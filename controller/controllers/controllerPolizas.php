@@ -39,6 +39,10 @@ class PolizasController {
     case "regUsuario":
       $this->regUsuario();
       break;
+
+    case "infoAbogado":
+      $this->infoAbogado();
+      break;
     }
   }
   public function DocumentacionCliente()
@@ -204,6 +208,18 @@ class PolizasController {
     $pass = $_POST["pass"];
     $permission = $_POST["permission"];
     $Datos = $this->PolizasDao->regUsuario($idLawyer,$primerNombreL,$segundoNombreL,$primerApellidoL,$segundoApellidoL,$emailL,$username,$pass,$permission);
+    $return["Error"] = $error;
+    $return["Mensaje"] = $mensaje;
+    $return["Datos"] = $Datos;
+    echo json_encode($return);
+  }
+
+  public function infoAbogado() {
+    /*LAS VARIABLES ERROR Y MENSAJE SE ESTABLECEN PARA EL CONTROL DE ERRORES*/
+    $error = "N";
+    $mensaje = "";
+    //$variable = $_POST["variable"];
+    $Datos = $this->PolizasDao->infoAbogado();
     $return["Error"] = $error;
     $return["Mensaje"] = $mensaje;
     $return["Datos"] = $Datos;
