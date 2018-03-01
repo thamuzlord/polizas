@@ -35,6 +35,10 @@ class PolizasController {
     case "tipoUsuario":
       $this->tipoUsuario();
       break;
+
+    case "regUsuario":
+      $this->regUsuario();
+      break;
     }
   }
   public function DocumentacionCliente()
@@ -180,6 +184,26 @@ class PolizasController {
     $mensaje = "";
     //$variable = $_POST["variable"];
     $Datos = $this->PolizasDao->tipoUsuario();
+    $return["Error"] = $error;
+    $return["Mensaje"] = $mensaje;
+    $return["Datos"] = $Datos;
+    echo json_encode($return);
+  }
+
+  public function regUsuario() {
+    /*LAS VARIABLES ERROR Y MENSAJE SE ESTABLECEN PARA EL CONTROL DE ERRORES*/
+    $error = "N";
+    $mensaje = "";
+    $idLawyer = $_POST["idLawyer"];
+    $primerNombreL = $_POST["primerNombreL"];
+    $segundoNombreL = $_POST["segundoNombreL"];
+    $primerApellidoL = $_POST["primerApellidoL"];
+    $segundoApellidoL = $_POST["segundoApellidoL"];
+    $emailL = $_POST["emailL"];
+    $username = $_POST["username"];
+    $pass = $_POST["pass"];
+    $permission = $_POST["permission"];
+    $Datos = $this->PolizasDao->regUsuario($idLawyer,$primerNombreL,$segundoNombreL,$primerApellidoL,$segundoApellidoL,$emailL,$username,$pass,$permission);
     $return["Error"] = $error;
     $return["Mensaje"] = $mensaje;
     $return["Datos"] = $Datos;
