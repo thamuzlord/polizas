@@ -47,6 +47,19 @@ class PolizasController {
     case "tipoPersona":
       $this->tipoPersona();
       break;
+      
+      /*DOCUMENTOS REQUERIDOS*/
+      case "ListaDocumentosRequeridos":
+        $this->ListaDocumentosRequeridos();
+        break;
+
+      case "RegistrarDocumentoRequerido":
+        $this->RegistrarDocumentoRequerido();
+        break;
+
+      case "modificarDocumentoRequerido":
+        $this->modificarDocumentoRequerido();
+        break;
     }
   }
   public function DocumentacionCliente()
@@ -236,6 +249,40 @@ class PolizasController {
     $mensaje = "";
     //$variable = $_POST["variable"];
     $Datos = $this->PolizasDao->tipoPersona();
+    $return["Error"] = $error;
+    $return["Mensaje"] = $mensaje;
+    $return["Datos"] = $Datos;
+    echo json_encode($return);
+ }
+
+  /*DOCUMENTOS REQUERIDOS*/
+  public function ListaDocumentosRequeridos()
+  {
+    $error = "N";
+    $mensaje = "";   
+    $Datos = $this->PolizasDao->ListaDocumentosRequeridos();    
+    $return["Error"] = $error;
+    $return["Mensaje"] = $mensaje;
+    $return["Datos"] = $Datos;
+    echo json_encode($return);
+  }
+
+  public function RegistrarDocumentoRequerido()
+  {
+    $error = "N";
+    $mensaje = "";   
+    $Datos = $this->PolizasDao->RegistrarDocumentoRequerido();    
+    $return["Error"] = $error;
+    $return["Mensaje"] = $mensaje;
+    $return["Datos"] = $Datos;
+    echo json_encode($return);
+  }
+
+  public function modificarDocumentoRequerido()
+  {
+    $error = "N";
+    $mensaje = "";   
+    $Datos = $this->PolizasDao->modificarDocumentoRequerido();    
     $return["Error"] = $error;
     $return["Mensaje"] = $mensaje;
     $return["Datos"] = $Datos;
