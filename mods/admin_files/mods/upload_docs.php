@@ -76,7 +76,7 @@ if(isset($_GET["VerDocumento"]))
 	header('Content-Length: ' . filesize($_SESSION['RutaArchivoVer']));
 	ob_clean();
 	flush();
-	readfile($file);
+	readfile($_SESSION['RutaArchivoVer']);
 	exit;
 }
 

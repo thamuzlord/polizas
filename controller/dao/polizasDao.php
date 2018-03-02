@@ -113,4 +113,54 @@ function DocumentacionCliente($cliente){
     return $pdo->Consulta($sql, "S", "ASSOC");
   }
 
+  /************************/
+  /*DOCUMENTOS REQUERIDOS**/
+  /************************/
+  function ListaDocumentosRequeridos()
+  {
+    $pdo = new ClassPDO();
+
+    /*CONSULTAR LOS DOCUMENTOS REQUERIDOS*/
+    $sql = " SELECT * FROM  documentacion_requerida ORDER BY idDocumentacionRequerida";
+    return $Docuemntos = $pdo->Consulta($sql, "S", "ASSOC");
+  }
+  function RegistrarDocumentoRequerido()
+  {
+    
+    $pdo = new ClassPDO();
+    /*EXTRAER LOS DATOS POST*/
+    extract($_POST);
+
+    /*CONSULTA CONSECUTIVO TABLA*/
+    $sql = " SELECT MAX(idDocumentacionRequerida)+1 Consecutivo FROM  documentacion_requerida";
+    $consecutivo = $pdo->Consulta($sql, "S", "ASSOC");
+    $consecutivo = $consecutivo[0]["Consecutivo"];
+    
+    /*REGISTRAR DOCUMENTO*/
+    $sql = "  INSERT INTO `documentacion_requerida`(`idDocumentacionRequerida`, `nombreDocumento`, `nombreVisible`, `descripcionDocumento`, `personaAplica`, `estadoRequerida`)
+              VALUES ('$consecutivo', '$nombreDocumento', '$nombreVisible', '$descripcionDocumento', '$tipoUsuario','$estadoDocumento')
+            ";
+    $pdo->Consulta($sql, "N", "ASSOC");
+  }
+
+  function modificarDocumentoRequerido()
+  {
+    
+    $pdo = new ClassPDO();
+    /*EXTRAER LOS DATOS POST*/
+    extract($_POST);
+
+    /*REGISTRAR DOCUMENTO*/
+    $sql = "  UPDATE `documentacion_requerida` SET 
+                      `nombreDocumento`='$nombreDocumento',
+                      `nombreVisible`='$nombreVisible',
+                      `descripcionDocumento`='$descripcionDocumento',
+                      `personaAplica`='$tipoUsuario',
+                      `estadoRequerida`='$estadoDocumento'
+              WHERE idDocumentacionRequerida = '$idDocumento'
+            ";
+    $pdo->Consulta($sql, "N", "ASSOC");
+  }
+
+
 }

@@ -47,28 +47,33 @@
 }
 </style>
 
-<div class="fixed">
+<div class="row">
+  <div class="col-sm-6">
+      <div id="arbolDocumentos" style="margin:50px 0; height: 550px; overflow: auto;" ></div>
+  </div>
+  <div class="col-sm-6">
+      <div class="fixed">
 
-	<div class="row">
-		<h1>Módulo de administración de archivos</h1>
-	</div>
+      	<div class="row">
+      		<h1>Módulo de administración de archivos</h1>
+      	</div>
 
-	<div class="row" style="height: 70px; width: 150%; margin-top:30px;">
-		<label for="cbo_cliente" class="col-sm-1 label-control" style="padding:5px">Cliente:</label>
-		<div class="col-sm-6">
-			<select  id="cbo_cliente" name="cbo_cliente" class="form-control" onchange="DocumentacionCliente()"></select>
-		</div>
-		<div class="col-sm-4">
-			<button class="botonAddAdjunto" onclick="VistaAddArchivo()">
-	  			<i class="icon ion-paperclip rotate" title="Adjuntar archivo"></i>
-			</button>
-		</div>
-	</div>
+      	<div class="row" style="height: 70px; width: 150%; margin-top:30px;">
+      		<label for="cbo_cliente" class="col-sm-1 label-control" style="padding:5px">Cliente:</label>
+      		<div class="col-sm-6">
+      			<select  id="cbo_cliente" name="cbo_cliente" class="form-control" onchange="DocumentacionCliente()"></select>
+      		</div>
+      		<div class="col-sm-4">
+      			<button class="botonAddAdjunto" onclick="VistaAddArchivo()">
+      	  			<i class="icon ion-paperclip rotate" title="Adjuntar archivo"></i>
+      			</button>
+      		</div>
+      	</div>
 
+      </div>
+  </div>
+  
 </div>
-
-<div id="arbolDocumentos" style="margin:200px 100px 20px; height: 450px; overflow: auto;" ></div>
-
 <div class="modal fade" id="modalGeneral" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static">
 	<div class="modal-dialog" role="document">
 	<div class="modal-content" style="">
