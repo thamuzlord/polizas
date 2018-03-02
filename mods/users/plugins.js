@@ -14,7 +14,7 @@ function tipoUsuario() {
     if (datosRespuesta != false && datosRespuesta != '')
     {
         datosTipoUsuario = datosRespuesta.Datos;
-        var tipoUser = '<option value="">Seleccione un tipo de usuario.....</option>';
+        var tipoUser = '<option value="">Seleccione un tipo de usuario.</option>';
         $.each(datosTipoUsuario, function (x, item){
           tipoUser += '<option value="'+item.idTipoUsuario+'">'+item.TipoUsuario+'</option>';
         })

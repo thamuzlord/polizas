@@ -43,6 +43,10 @@ class PolizasController {
     case "infoAbogado":
       $this->infoAbogado();
       break;
+
+    case "tipoPersona":
+      $this->tipoPersona();
+      break;
     }
   }
   public function DocumentacionCliente()
@@ -220,6 +224,18 @@ class PolizasController {
     $mensaje = "";
     //$variable = $_POST["variable"];
     $Datos = $this->PolizasDao->infoAbogado();
+    $return["Error"] = $error;
+    $return["Mensaje"] = $mensaje;
+    $return["Datos"] = $Datos;
+    echo json_encode($return);
+  }
+
+  public function tipoPersona() {
+    /*LAS VARIABLES ERROR Y MENSAJE SE ESTABLECEN PARA EL CONTROL DE ERRORES*/
+    $error = "N";
+    $mensaje = "";
+    //$variable = $_POST["variable"];
+    $Datos = $this->PolizasDao->tipoPersona();
     $return["Error"] = $error;
     $return["Mensaje"] = $mensaje;
     $return["Datos"] = $Datos;

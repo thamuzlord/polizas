@@ -1,7 +1,6 @@
 <?php
   echo "<!doctype html>";
   echo "<html>";
-  echo "<body>";
 //require_once('Configuracion/session.php');
 //$Session=new Session();
 //$Session->SessionActiva();
