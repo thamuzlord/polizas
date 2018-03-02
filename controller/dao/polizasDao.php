@@ -113,6 +113,13 @@ function DocumentacionCliente($cliente){
     return $pdo->Consulta($sql, "S", "ASSOC");
   }
 
+
+  function tipoPersona(){
+    $pdo = new ClassPDO();
+    $sql = "SELECT * FROM tipopersona";
+    return $pdo->Consulta($sql, "S", "ASSOC");
+  }
+
   /************************/
   /*DOCUMENTOS REQUERIDOS**/
   /************************/
@@ -161,6 +168,5 @@ function DocumentacionCliente($cliente){
             ";
     $pdo->Consulta($sql, "N", "ASSOC");
   }
-
 
 }

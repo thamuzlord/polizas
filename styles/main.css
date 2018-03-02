@@ -71,8 +71,18 @@ h5 {
 }
 
 thead th {
-	background-color: rgba(255, 176, 0, 0.2);
-	color: #2870a2 !important;
+	text-align: center;
+	background-color: #cccccc;
+	color: #1F2A39 !important;
+	transition: all .25s;
+	border-radius:0px;
+	border-color: #2870a2;
+}
+
+tfoot th {
+	text-align: center;
+	background-color: #cccccc;
+	color: #1F2A39 !important;
 	transition: all .25s;
 	border-radius:0px;
 	border-color: #2870a2;
@@ -914,8 +924,8 @@ a:hover {
   color:#FFF;
   font-size:40px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  transition:.3s;  
-} 
+  transition:.3s;
+}
 
 .botonAddAdjunto:hover{
   width:70px;
@@ -924,7 +934,7 @@ a:hover {
 }
 
 .rotate {
-  display: inline-block; 
+  display: inline-block;
   transform: rotate(45deg);
 }
 

@@ -43,6 +43,10 @@ class PolizasController {
     case "infoAbogado":
       $this->infoAbogado();
       break;
+
+    case "tipoPersona":
+      $this->tipoPersona();
+      break;
       
       /*DOCUMENTOS REQUERIDOS*/
       case "ListaDocumentosRequeridos":
@@ -56,8 +60,6 @@ class PolizasController {
       case "modificarDocumentoRequerido":
         $this->modificarDocumentoRequerido();
         break;
-        
-      /*************************/
     }
   }
   public function DocumentacionCliente()
@@ -241,29 +243,35 @@ class PolizasController {
     echo json_encode($return);
   }
 
+  public function tipoPersona() {
+    /*LAS VARIABLES ERROR Y MENSAJE SE ESTABLECEN PARA EL CONTROL DE ERRORES*/
+    $error = "N";
+    $mensaje = "";
+    //$variable = $_POST["variable"];
+    $Datos = $this->PolizasDao->tipoPersona();
+    $return["Error"] = $error;
+    $return["Mensaje"] = $mensaje;
+    $return["Datos"] = $Datos;
+    echo json_encode($return);
+ }
 
   /*DOCUMENTOS REQUERIDOS*/
   public function ListaDocumentosRequeridos()
   {
     $error = "N";
-    $mensaje = "";
-   
-    $Datos = $this->PolizasDao->ListaDocumentosRequeridos();
-    
+    $mensaje = "";   
+    $Datos = $this->PolizasDao->ListaDocumentosRequeridos();    
     $return["Error"] = $error;
     $return["Mensaje"] = $mensaje;
     $return["Datos"] = $Datos;
     echo json_encode($return);
   }
 
-
   public function RegistrarDocumentoRequerido()
   {
     $error = "N";
-    $mensaje = "";
-   
-    $Datos = $this->PolizasDao->RegistrarDocumentoRequerido();
-    
+    $mensaje = "";   
+    $Datos = $this->PolizasDao->RegistrarDocumentoRequerido();    
     $return["Error"] = $error;
     $return["Mensaje"] = $mensaje;
     $return["Datos"] = $Datos;
@@ -273,14 +281,12 @@ class PolizasController {
   public function modificarDocumentoRequerido()
   {
     $error = "N";
-    $mensaje = "";
-   
-    $Datos = $this->PolizasDao->modificarDocumentoRequerido();
-    
+    $mensaje = "";   
+    $Datos = $this->PolizasDao->modificarDocumentoRequerido();    
     $return["Error"] = $error;
     $return["Mensaje"] = $mensaje;
     $return["Datos"] = $Datos;
     echo json_encode($return);
   }
-  /*********************************/
+
 }

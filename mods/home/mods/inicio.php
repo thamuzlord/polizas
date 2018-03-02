@@ -18,7 +18,7 @@
 	</head>
 	<br>
 	<div class='row'>
-	  <div class='col-xs-12'>
+	  <div class='col-xs-12 col-md-12 col-lg-12'>
 			<div class="table-responsive">
 	        <table id='polizas_table' class='table table-bordered table-striped'>
 	          <thead>
@@ -47,30 +47,6 @@
 	          </thead>
 	          <tbody id='table_polizas'>
 	          </tbody>
-            <tfoot>
-              <tr>
-								<th>ID</th>
-								<th>Título Minero</th>
-								<th>Código RMN</th>
-								<th>Cliente</th>
-								<th>N° Poliza</th>
-								<th>Aseguradora</th>
-								<th>Fecha Adquisición</th>
-								<th>Fecha Vencimiento</th>
-								<th>Valor Asegurado</th>
-								<th>Porcentaje Prima</th>
-								<th>Prima</th>
-								<th>Prima+IVA</th>
-								<th>Gastos de Expedición</th>
-								<th>Tasa para Comisión</th>
-								<th>Valor Comisión</th>
-								<th>Retención</th>
-								<th>Porcentaje Asesor</th>
-								<th>Porcentaje CAVAL & BEGA</th>
-								<th>Asesor</th>
-								<th>Observaciones</th>
-              </tr>
-            </tfoot>
           </table>
 				</div>
     </div>
@@ -82,7 +58,6 @@
 			<button type="button" class="fechar-modal" data-dismiss="modal" aria-label="Close" title="Cerrar"><span aria-hidden="true">X</span></button>
 		  </div>
 		  <div class="modal-body" id="modalContenido">
-
 		  </div>
 		</div>
 		</div>
