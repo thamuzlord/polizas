@@ -273,3 +273,210 @@ function ConsultarImagenIcon(dat)
 	}
 	return img;
 }
+
+
+/************************************************************/
+/*****************DOCUMENTOS REQUERIDOS**********************/
+/************************************************************/
+
+function GuardarDocumentoRequerido()
+{
+	if( $("#nombreDocumentoR").val() ==""){
+		alert("Ingresar nombre del documento requerido.")
+		$("#nombreDocumentoR").focus();
+		return false;
+	}
+	
+	if( $("#nombreArchivoVisible").val() ==""){
+		alert("Ingresar nombre del documento para la descarga.")
+		$("#nombreArchivoVisible").focus();
+		return false;
+	}
+
+	var datos = new Object();
+    datos["ConfigAjax"] = ['POST', 'enrout.php?cmd=RegistrarDocumentoRequerido', 'false'];
+    datos["nombreDocumento"] =  $("#nombreDocumentoR").val();
+    datos["nombreVisible"] = $("#nombreArchivoVisible").val();
+    datos["descripcionDocumento"] = $("#descripcionDocumentoR").val();
+    datos["tipoUsuario"] = $("#tipoUsuarioDocumentoR").val();
+    datos["estadoDocumento"] = $("#estadoDocumentoR").val();
+    
+
+    var datosRespuesta = PeticionAjax(datos);
+
+    if (datosRespuesta != false && datosRespuesta != '') {
+        //RECIBIMOS ARRAY CON LOS USUARIOS DE LA BASE DE DATOS
+        //$.Documentacion = datosRespuesta.DctosRequeridos;
+       	//$DctosCliente = datosRespuesta.DctosCliente;
+
+		alert("Documento registrado");+
+		ConsultarDocumentosRequeridos();
+       	/*CARGAR ARBOL*/
+       	//CargarArbolArchivos();
+        return true;
+
+    } else {
+        alert("Error al listar los usuarios.");
+        return false;
+    }
+}
+
+function ConsultarDocumentosRequeridos()
+{
+	var datos = new Object();
+    datos["ConfigAjax"] = ['POST', 'enrout.php?cmd=ListaDocumentosRequeridos', 'false'];
+    var datosRespuesta = PeticionAjax(datos);
+
+    if (datosRespuesta != false && datosRespuesta != '')
+    {
+        
+        DocumentosRequeridos = datosRespuesta.Datos;
+        ListadoDocumentosRequeridos();
+        return true;
+
+    } else {
+        alert("Error al listar los usuarios.");
+        return false;
+    }
+}
+
+function ListadoDocumentosRequeridos() {
+
+	table ="";
+
+	table += `
+			<div class="container" style="">
+  				<h2>Listado documentos requeridos</h2>
+				<table class="table table-condensed" style="background:#FFF">
+					<thead style="">
+						<tr>
+							<th>Documento</th>
+							<th>Nombre descarga</th>
+							<th>Descripción</label>
+							<th>Tipo usuario</th>
+							<th>Requerido</th>
+							<th>Acción</th>
+						</tr>
+					</thead>
+					<tbody>
+					`;
+
+	$.each(DocumentosRequeridos, function(index, i)
+	{
+		tUser = ""
+		requerido = "Si"
+
+		switch(i.personaAplica) {
+		    case "A":
+		        tUser ="Ambos"
+		        break;
+		    case "N":
+		        tUser = "Natural"
+		        break;
+		    case "J":
+		        tUser = "Jurídico"
+		        break;
+		}
+
+		if(i.estadoRequerida=="N"){ requerido="No"}
+		var descripcion = i.descripcionDocumento
+		if(descripcion==null){ descripcion=""; }
+
+		table += `	<tr>
+
+						<td>${i.nombreDocumento}</td>
+						<td>${i.nombreVisible}</td>
+						<td>${descripcion}</td>
+						<td>${tUser}</td>
+						<td>${requerido}</td>
+						<td><button onclick="ModificarRequerido(${index})" class="btn btn-danger">Modificar</button></td>
+					</tr>
+					
+			   `;
+	});
+
+
+	table += `	</tbody>
+				</table>
+			</div>
+				`;
+
+	$("#listado_documentos").html(table);
+	$("thead th").css("color","#FFF")
+}
+
+function ModificarRequerido(dat)
+{
+	$Seleccion = DocumentosRequeridos[dat];
+
+	$("#nombreDocumentoR").val($Seleccion.nombreDocumento);
+	$("#nombreArchivoVisible").val($Seleccion.nombreDocumento);
+	$("#descripcionDocumentoR").html($Seleccion.descripcionDocumento);
+	$("#tipoUsuarioDocumentoR").val($Seleccion.personaAplica);
+	$("#estadoDocumentoR").val($Seleccion.estadoRequerida);
+	$("#idDocumentoR").val($Seleccion.idDocumentacionRequerida);
+
+	$("#GuardarDRequerido").hide();
+	$("#ActualizarDRequerido").show();
+	$("#CancelarDRequerido").show();
+
+	$("html, body").animate({ scrollTop: 0 }, 600);
+	return false;
+}
+
+function CancelarDocumentoRequerido()
+{
+	$("#nombreDocumentoR").val('');
+	$("#nombreArchivoVisible").val('');
+	$("#descripcionDocumentoR").html('');
+	$("#tipoUsuarioDocumentoR").val('');
+	$("#estadoDocumentoR").val('');
+	$("#idDocumentoR").val('');
+
+	$("#GuardarDRequerido").show();
+	$("#ActualizarDRequerido").hide();
+	$("#CancelarDRequerido").hide();
+	return false;
+}
+
+function ActualizarDocumentoRequerido()
+{
+	if( $("#nombreDocumentoR").val() ==""){
+		alert("Ingresar nombre del documento requerido.")
+		$("#nombreDocumentoR").focus();
+		return false;
+	}
+	
+	if( $("#nombreArchivoVisible").val() ==""){
+		alert("Ingresar nombre del documento para la descarga.")
+		$("#nombreArchivoVisible").focus();
+		return false;
+	}
+
+	var datos = new Object();
+    datos["ConfigAjax"] = ['POST', 'enrout.php?cmd=modificarDocumentoRequerido', 'false'];
+    datos["nombreDocumento"] =  $("#nombreDocumentoR").val();
+    datos["nombreVisible"] = $("#nombreArchivoVisible").val();
+    datos["descripcionDocumento"] = $("#descripcionDocumentoR").val();
+    datos["tipoUsuario"] = $("#tipoUsuarioDocumentoR").val();
+    datos["estadoDocumento"] = $("#estadoDocumentoR").val();
+    datos["idDocumento"] = $("#idDocumentoR").val();
+    
+
+    var datosRespuesta = PeticionAjax(datos);
+
+    if (datosRespuesta != false && datosRespuesta != '') {
+        //RECIBIMOS ARRAY CON LOS USUARIOS DE LA BASE DE DATOS
+        //$.Documentacion = datosRespuesta.DctosRequeridos;
+       	//$DctosCliente = datosRespuesta.DctosCliente;
+		alert("Documento actualizado correctamente");
+		location.reload();
+       	/*CARGAR ARBOL*/
+       	//CargarArbolArchivos();
+        return true;
+
+    } else {
+        alert("Error al listar los usuarios.");
+        return false;
+    }
+}
