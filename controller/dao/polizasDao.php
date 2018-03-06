@@ -169,4 +169,50 @@ function DocumentacionCliente($cliente){
     $pdo->Consulta($sql, "N", "ASSOC");
   }
 
+  function guardarCliente($idCliente,$NIT,$primerNombre,$segundoNombre,$primerApellido,$segundoApellido,$telefono,$direccion,$email,$tipoPersona){
+    $pdo = new ClassPDO();
+    $sql = "INSERT INTO cliente (
+      idCliente
+      ,NIT
+      ,primerNombre
+      ,segundoNombre
+      ,primerApellido
+      ,segundoApellido
+      ,telefono
+      ,direccion
+      ,email
+      ,tipoPersona
+      ) VALUES (
+        '$idCliente',
+        '$NIT',
+        '$primerNombre',
+        '$segundoNombre',
+        '$primerApellido',
+        '$segundoApellido',
+        '$telefono',
+        '$direccion',
+        '$email',
+        '$tipoPersona'
+      )";
+    return $pdo->Consulta($sql, "N", "ASSOC");
+  }
+
+  function guardarAseguradora($idAseguradora,$nombreAseguradora,$contactoAseguradora,$telefonoContactoAseguradora,$correoContactoAseguradora){
+    $pdo = new ClassPDO();
+    $sql = "INSERT INTO aseguradora (
+      idAseguradora
+      ,nombreAseguradora
+      ,contactoAseguradora
+      ,telefonoContactoAseguradora
+      ,correoContactoAseguradora
+      ) VALUES (
+        '$idAseguradora',
+        '$nombreAseguradora',
+        '$contactoAseguradora',
+        '$telefonoContactoAseguradora',
+        '$correoContactoAseguradora'
+      )";
+    return $pdo->Consulta($sql, "N", "ASSOC");
+  }
+
 }

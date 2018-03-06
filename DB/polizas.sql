@@ -109,15 +109,17 @@ CREATE TABLE `documentacion_cliente` (
   CONSTRAINT `fk_DocumentacionRequerida` FOREIGN KEY (`idDocumentacionRequerida`) REFERENCES `documentacion_requerida` (`idDocumentacionRequerida`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_idCliente` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idRow`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_idUsuarioCargaDocumento` FOREIGN KEY (`idUsuarioCargaDocumento`) REFERENCES `lawyer` (`idLawyer`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 /*Data for the table `documentacion_cliente` */
 
 insert  into `documentacion_cliente`(`idRow`,`idDocumentacionCliente`,`idDocumentacionRequerida`,`idCliente`,`nombreArchivoFisico`,`fechaCargaDocumento`,`idUsuarioCargaDocumento`) values 
-(1,1,1,1,'slip_22/02/2018 10:31','0000-00-00 00:00:00',1),
-(2,2,8,1,'8_20180228012527.pdf','2018-02-27 19:25:27',1),
-(3,3,12,1,'12_20180228012543.pdf','2018-02-27 19:25:43',1),
-(4,4,12,1,'12_20180228012554.pdf','2018-02-27 19:25:54',1);
+(6,0,1,1,'1_20180301045409.jpeg','2018-02-28 22:54:09',1),
+(7,1,4,1,'4_20180301050436.pdf','2018-02-28 23:04:36',1),
+(8,2,3,1,'3_20180301050531.jpeg','2018-02-28 23:05:31',1),
+(9,3,2,1,'2_20180301050621.jpeg','2018-02-28 23:06:21',1),
+(10,4,8,1,'8_20180301051018.pdf','2018-02-28 23:10:18',1),
+(11,5,5,1,'5_20180301061957.pdf','2018-03-01 00:19:57',2);
 
 /*Table structure for table `documentacion_requerida` */
 
@@ -134,7 +136,7 @@ CREATE TABLE `documentacion_requerida` (
   PRIMARY KEY (`idRow`),
   UNIQUE KEY `idDocumentacionRequerida_UNIQUE` (`idDocumentacionRequerida`),
   UNIQUE KEY `idRow_UNIQUE` (`idRow`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 /*Data for the table `documentacion_requerida` */
 
@@ -155,7 +157,8 @@ insert  into `documentacion_requerida`(`idRow`,`idDocumentacionRequerida`,`nombr
 (14,14,'Cédula representante','CED_REP',NULL,'J','S'),
 (15,15,'Estados financieros','ESTADOS',NULL,'J','S'),
 (16,16,'P&G','PG',NULL,'J','S'),
-(17,17,'RUT','RUT','Registro Unico Tributario','J','S');
+(17,17,'RUT','RUT','Registro Unico Tributario','J','S'),
+(18,18,'OTRO OTRO','OTRO OTRA','HOLAAA','A','N');
 
 /*Table structure for table `etapa_titulo_minero` */
 
@@ -200,15 +203,20 @@ CREATE TABLE `lawyer` (
   UNIQUE KEY `idRow_UNIQUE` (`idRow`),
   KEY `tipo_usuario_idx` (`permission`),
   CONSTRAINT `fk_permission` FOREIGN KEY (`permission`) REFERENCES `permission` (`idTipoUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 /*Data for the table `lawyer` */
 
 insert  into `lawyer`(`idRow`,`idLawyer`,`username`,`pass`,`emailL`,`primerNombreL`,`segundoNombreL`,`primerApellidoL`,`segundoApellidoL`,`celularL`,`create_time`,`permission`) values 
-(1,1,'carlos','123','carlos@gmail.com','Carlos','Andrés','Vasco','Bastidas','3193892764',NULL,3),
-(2,2,'sergio','123','sergio@gmail.com','Sergio',NULL,NULL,NULL,NULL,NULL,3),
-(3,3,'iza','123','iza@gmail.com','Elizabeth',NULL,NULL,NULL,NULL,NULL,2),
-(4,4,'perla','123','perla@gmail.com','Perla',NULL,NULL,NULL,NULL,NULL,1);
+(1,1,'carlos','123','carlos@gmail.com','Carlos','Andrés','Vasco','Bastidas','3193892764','2018-02-28 21:28:29',3),
+(2,2,'sergio','123','sergio@gmail.com','Sergio',NULL,NULL,NULL,NULL,'2018-02-28 21:28:29',3),
+(3,3,'iza','123','iza@gmail.com','Elizabeth',NULL,NULL,NULL,NULL,'2018-02-28 21:28:29',2),
+(4,4,'perla','123','perla@gmail.com','Perla',NULL,NULL,NULL,NULL,'2018-02-28 21:28:29',1),
+(5,9875465,'juan','123','juan','Juan','Pedro','Arango','','','2018-02-28 21:28:29',3),
+(6,32569874,'maria','123','','Maria','','','','','2018-02-28 21:31:47',3),
+(7,654789,'luis','564789','luis','Luis','Fernando','Arango','Zapata','','2018-02-28 21:33:14',1),
+(8,654321,'hdh','dtr','','kjh','kjh','kjh','','','2018-02-28 21:42:44',3),
+(9,3659841,'ana','56974','','Ana','Maria','jh','','','2018-02-28 22:37:00',1);
 
 /*Table structure for table `mineral` */
 
@@ -251,9 +259,9 @@ CREATE TABLE `permission` (
 /*Data for the table `permission` */
 
 insert  into `permission`(`idRow`,`idTipoUsuario`,`TipoUsuario`) values 
-(1,1,'View'),
-(2,2,'Modify'),
-(3,3,'All');
+(1,1,'Ver'),
+(2,2,'Modificar'),
+(3,3,'Todos');
 
 /*Table structure for table `poliza` */
 
@@ -301,12 +309,19 @@ CREATE TABLE `poliza` (
   CONSTRAINT `idCliente` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idRow`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idLawyer` FOREIGN KEY (`idLawyer`) REFERENCES `lawyer` (`idLawyer`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idMineral` FOREIGN KEY (`idMineral`) REFERENCES `mineral` (`idMineral`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 /*Data for the table `poliza` */
 
 insert  into `poliza`(`idRow`,`idPoliza`,`idMineral`,`precioMineral`,`tituloMinero`,`etapaTituloMinero`,`codigoRMN`,`idCliente`,`numeroPoliza`,`idAseguradora`,`gastosExpedicion`,`fechaAdquisicion`,`fechaVencimiento`,`valorAsegurado`,`porcentajePrima`,`prima`,`tasaParaComision`,`valorComision`,`porcentajeRetencion`,`totalRetencion`,`porcentajeAsesor`,`totalAsesor`,`porcentajeEmpresa`,`totalEmpresa`,`observaciones`,`idLawyer`,`renovacion`,`fechaRenovacion`) values 
-(1,1,1,NULL,'001-002',1,'CAV-0001',1,'256987',1,NULL,'01/01/2018','12/12/2018','30000000','5','1500000','30','450000','0.11','49500','30','120150','70','280350',NULL,1,NULL,NULL);
+(1,1,1,NULL,'001-002',1,'CAV-0001',1,'256987',1,NULL,'01/01/2018','12/12/2018','30000000','5','1500000','30','450000','0.11','49500','30','120150','70','280350',NULL,1,NULL,NULL),
+(2,2,1,NULL,'001-002',1,'CAV-0001',1,'256987',1,NULL,'01/01/2018','12/12/2018','30000000','5','1500000','30','450000','0.11','49500','30','120150','70','280350',NULL,1,NULL,NULL),
+(3,3,1,NULL,'001-002',1,'CAV-0001',1,'256987',1,NULL,'01/01/2018','12/12/2018','30000000','5','1500000','30','450000','0.11','49500','30','120150','70','280350',NULL,1,NULL,NULL),
+(4,4,1,NULL,'001-002',1,'CAV-0001',1,'256987',1,NULL,'01/01/2018','12/12/2018','30000000','5','1500000','30','450000','0.11','49500','30','120150','70','280350',NULL,1,NULL,NULL),
+(5,5,1,NULL,'001-002',1,'CAV-0001',1,'256987',1,NULL,'01/01/2018','12/12/2018','30000000','5','1500000','30','450000','0.11','49500','30','120150','70','280350',NULL,1,NULL,NULL),
+(6,6,1,NULL,'001-002',1,'CAV-0001',1,'256987',1,NULL,'01/01/2018','12/12/2018','30000000','5','1500000','30','450000','0.11','49500','30','120150','70','280350',NULL,1,NULL,NULL),
+(7,7,1,NULL,'001-002',1,'CAV-0001',1,'256987',1,NULL,'01/01/2018','12/12/2018','30000000','5','1500000','30','450000','0.11','49500','30','120150','70','280350',NULL,1,NULL,NULL),
+(8,8,1,NULL,'001-002',1,'CAV-0001',1,'256987',1,NULL,'01/01/2018','12/12/2018','30000000','5','1500000','30','450000','0.11','49500','30','120150','70','280350',NULL,1,NULL,NULL);
 
 /*Table structure for table `tipopersona` */
 

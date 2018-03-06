@@ -9,13 +9,13 @@ function newclient(){
     <div class="row">
       <div class="col-lg-12">
         <label for="email" class="text-center">Tipo de Cliente:</label>
-        <select name="tipoPersona" id="tipoPersona" class="form-control text-center" style="max-width:40%">
+        <select name="tipoPersona" id="tipoPersona" onChange="formTipoCliente()" class="form-control text-center" style="max-width:40%">
         </select>
       </div>
-        <div class="form-group">
+        <div class="form-group" id="formCliente">
           <div class="col-lg-6">
-            <label for="email">Cédula:</label>
-            <input type="text" class="form-control" id="cedula" placeholder="Cédula" name="cedula">
+            <div id="tipoDoc">
+            </div>
             <label for="email">Primer Nombre:</label>
             <input type="text" class="form-control" id="primerNombre" placeholder="Primer Nombre" name="primerNombre">
             <label for="email">Segundo Nombre:</label>
@@ -33,14 +33,15 @@ function newclient(){
           <label for="email">Email:</label>
           <input type="text" class="form-control" id="email" placeholder="Email" name="email">
           <br>
-          <button class="btn btn-warning">Cancelar</button>
-          <button class="btn btn-success">Guardar</button>
+          <button class="btn btn-warning" onClick="$('#modalGeneral').modal('hide');">Cancelar</button>
+          <button class="btn btn-success" onClick="guardarCliente()">Guardar</button>
         </div>
       </div>
   </div>
-			`
+`
 	$('#modalGeneral').modal('show');
 	$("#modalContenido").html(cli);
+    $("#formCliente").hide();
 }
 
 $(function () {
@@ -118,6 +119,26 @@ function tablePolicies() {
     }
 }
 
+function formTipoCliente(){
+    var tipoPersona = $("#tipoPersona").val();
+    var campoCliente = '';
+    if (tipoPersona == 1) {
+        campoCliente += '<label for="email">Cédula:</label>';
+        campoCliente += '<input type="text" class="form-control" id="cedula" placeholder="Cédula" name="cedula">';
+        $("#formCliente").show();
+    }
+    if (tipoPersona == 2) {
+        campoCliente += '<label for="email">NIT:</label>';
+        campoCliente += '<input type="text" class="form-control" id="NIT" placeholder="NIT" name="NIT">';
+        $("#formCliente").show();
+    }
+    if (tipoPersona == '') {
+        $("#formCliente").hide();
+        campoCliente = '';
+    }
+    $("#tipoDoc").html(campoCliente);
+}
+
 function tipoPersona() {
     var datos = new Object();
     datos["ConfigAjax"] = ['POST', 'enrout.php?cmd=tipoPersona', 'false'];
@@ -125,7 +146,7 @@ function tipoPersona() {
     if (datosRespuesta != false && datosRespuesta != '')
     {
         datosTipoUsuario = datosRespuesta.Datos;
-        var tipoUser = '<option value="">Seleccione un tipo de Persona.</option>';
+        var tipoUser = '<option value="">Seleccione un tipo de Persona</option>';
         $.each(datosTipoUsuario, function (x, item){
           tipoUser += '<option value="'+item.idTipoPersona+'">'+item.tipoPersona+'</option>';
         })
@@ -137,26 +158,85 @@ function tipoPersona() {
     }
 }
 
-function reg_user(){
-    var regUser = new Object();
-    regUser["idLawyer"] = $("#idLawyer").val();
-    regUser["primerNombreL"] = $("#primerNombreL").val();
-    regUser["segundoNombreL"] = $("#segundoNombreL").val();
-    regUser["primerApellidoL"] = $("#primerApellidoL").val();
-    regUser["segundoApellidoL"] = $("#segundoApellidoL").val();
-    regUser["emailL"] = $("#emailL").val();
-    regUser["username"] = $("#username").val();
-    regUser["pass"] = $("#pass").val();
-    regUser["permission"] = $("#permission").val();
-    regUser["ConfigAjax"] = ['POST', 'enrout.php?cmd=regUsuario', 'false'];
-    var datosRespuesta = PeticionAjax(regUser);
+function guardarCliente(){
+    var guardarCliente = new Object();
+    var tipoPersona = $("#tipoPersona").val();
+    if (tipoPersona == 1) {
+        guardarCliente["idCliente"] = $("#cedula").val();
+    }
+    if (tipoPersona == 2) {
+        guardarCliente["idCliente"] = $("#NIT").val();
+    }
+    guardarCliente["primerNombre"] = $("#primerNombre").val();
+    guardarCliente["segundoNombre"] = $("#segundoNombre").val();
+    guardarCliente["primerApellido"] = $("#primerApellido").val();
+    guardarCliente["segundoApellido"] = $("#segundoApellido").val();
+    guardarCliente["email"] = $("#email").val();
+    guardarCliente["telefono"] = $("#telefono").val();
+    guardarCliente["direccion"] = $("#direccion").val();
+    guardarCliente["tipoPersona"] = tipoPersona;
+    guardarCliente["ConfigAjax"] = ['POST', 'enrout.php?cmd=guardarCliente', 'false'];
+    var datosRespuesta = PeticionAjax(guardarCliente);
     if (datosRespuesta != false && datosRespuesta != '')
     {
-        swal("Registrado Exitosamente", "Usuario registrado", "success");
-        resetForm('register-form');
+        swal("Registrado Exitosamente", "Cliente registrado", "success");
+        $('#modalGeneral').modal('hide');
         return true;
     } else {
         swal("Error", "No se pudo registrar el usuario", "warning");
+        return false;
+    }
+}
+
+function newAseguradora(){
+  cli ="";
+    cli += `
+    <div class="row">
+        <div class="form-group">
+          <div class="col-lg-6">
+            <div id="tipoDoc">
+            </div>
+            <legend>Información Compañia</legend>
+            <label for="email">Nombre de la compañia:</label>
+            <input type="text" class="form-control" id="nombreAseguradora" placeholder="Nombre de la compañia" name="nombreAseguradora">
+            <label for="email">NIT:</label>
+            <input type="text" class="form-control" id="nitAseguradora" placeholder="NIT" name="nitAseguradora">
+          </div>
+        <div class="col-lg-6">
+          <legend>Información Contacto</legend>
+          <label for="email">Nombre Contacto:</label>
+          <input type="text" class="form-control" id="contactoAseguradora" placeholder="Nombre Contacto" name="contactoAseguradora">
+          <label for="email">Teléfono:</label>
+          <input type="text" class="form-control" id="telefonoContactoAseguradora" placeholder="Teléfono" name="telefonoContactoAseguradora">
+          <label for="email">Email:</label>
+          <input type="text" class="form-control" id="correoContactoAseguradora" placeholder="Email" name="correoContactoAseguradora">
+          <br>
+          <button class="btn btn-warning" onClick="$('#modalGeneral').modal('hide');">Cancelar</button>
+          <button class="btn btn-success" onClick="guardarAseguradora()">Guardar</button>
+        </div>
+      </div>
+  </div>
+`
+    $('#modalGeneral').modal('show');
+    $("#modalContenido").html(cli);
+}
+
+function guardarAseguradora(){
+    var guardarAseguradora = new Object();
+    guardarAseguradora["nombreAseguradora"] = $("#nombreAseguradora").val();
+    guardarAseguradora["idAseguradora"] = $("#nitAseguradora").val();
+    guardarAseguradora["contactoAseguradora"] = $("#contactoAseguradora").val();
+    guardarAseguradora["telefonoContactoAseguradora"] = $("#telefonoContactoAseguradora").val();
+    guardarAseguradora["correoContactoAseguradora"] = $("#correoContactoAseguradora").val();
+    guardarAseguradora["ConfigAjax"] = ['POST', 'enrout.php?cmd=guardarAseguradora', 'false'];
+    var datosRespuesta = PeticionAjax(guardarAseguradora);
+    if (datosRespuesta != false && datosRespuesta != '')
+    {
+        swal("Registro Exitoso", " Aseguradora registrada", "success");
+        $('#modalGeneral').modal('hide');
+        return true;
+    } else {
+        swal("Error", "No se pudo registrar la aseguradora", "warning");
         return false;
     }
 }
